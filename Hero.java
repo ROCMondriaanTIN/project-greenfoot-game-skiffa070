@@ -33,6 +33,7 @@ public class Hero extends Mover {
         handleInput();
         lava();
         water();
+        lava2();
         velocityX *= drag;
         velocityY += acc;
         if (velocityY > gravity) {
@@ -89,7 +90,14 @@ public class Hero extends Mover {
             }
         }
     }
-
+    public void lava2(){
+        for (Actor hero : getIntersectingObjects(lavaTile2.class)){
+            if (hero != null) {
+                setLocation(x,y);
+            }
+        }
+    }
+    
     public int getWidth() {
         return getImage().getWidth();
     }
