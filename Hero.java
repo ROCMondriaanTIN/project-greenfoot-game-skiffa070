@@ -11,8 +11,10 @@ public class Hero extends Mover {
     private final double acc;
     private final double drag;
     boolean onGround;
+     boolean coinGold= false;
     int x = 84;
     int y = 973;
+    boolean Key2;
     public int frame = 0;
 
     public Hero() {
@@ -20,12 +22,8 @@ public class Hero extends Mover {
         gravity = 9.8;
         acc = 0.6;
         drag = 0.8;
-        setImage("p1.png");
-        
-        GreenfootImage myImage = getImage();
-        int myNewHeight = (int)myImage.getHeight()*3/4;
-        int myNewWidth = (int)myImage.getWidth()*3/4;
-        myImage.scale(myNewWidth, myNewHeight);
+         setImage("p1.png");
+        getImage().scale(55, 70);                               
     }
 
     @Override
@@ -34,6 +32,8 @@ public class Hero extends Mover {
         lava();
         water();
         lava2();
+        eatKeys();
+        eatcoinGold();
         velocityX *= drag;
         velocityY += acc;
         if (velocityY > gravity) {
@@ -44,7 +44,7 @@ public class Hero extends Mover {
 
         for (Actor enemy : getIntersectingObjects(Enemy.class)) {
             if (enemy != null) {
-                getWorld().removeObject(this);
+                setLocation(x,y);
                 break;
             }
         }
@@ -53,7 +53,7 @@ public class Hero extends Mover {
     public void handleInput() {
         if (Greenfoot.isKeyDown("up") && (onGround() == true)) {
             //for(Actor Hero : getIntersectingObjects(Tile.class)){
-                velocityY = -15 ;
+                velocityY = -15;
                 
 
             //}
@@ -75,7 +75,6 @@ public class Hero extends Mover {
         return under != null;
     }
     
-
     public void lava(){
         for(Actor hero : getIntersectingObjects(lavaTile.class)){
             if(hero != null) {
@@ -97,7 +96,39 @@ public class Hero extends Mover {
             }
         }
     }
-    
+    public boolean eatKeys()
+
+    {
+        for(Actor keys : getIntersectingObjects(Key2.class))
+
+        {
+            if(isTouching(Key2.class))
+
+            {
+                removeTouching(Key2.class);
+                Key2= true;
+                break;
+            }
+        }
+        return Key2;
+    }
+
+    public boolean eatcoinGold()
+
+    {
+        for(Actor coinGolder : getIntersectingObjects(coinGoldTile.class))
+
+        {
+            if(isTouching(coinGoldTile.class))
+
+            {
+                removeTouching(coinGoldTile.class);
+                coinGold= true;
+                break;
+            }
+        }
+        return coinGold;
+    }
     public int getWidth() {
         return getImage().getWidth();
     }
@@ -110,57 +141,58 @@ public class Hero extends Mover {
         if(frame == 1 )
         {
             setImage("p1_walk01.png");
-            frame = 2;
+            getImage().scale(55, 70);
         }
         else if(frame == 2)
         {
             setImage("p1_walk02.png");
-            frame = 3;
+            getImage().scale(55, 70);
         }
         else if(frame == 3)
         {
             setImage("p1_walk03.png");
-            frame = 4;
+            getImage().scale(55, 70);
         }
         else if(frame == 4)
         {
             setImage("p1_walk04.png");
-            frame = 5;
+            getImage().scale(55, 70);
         }
         else if(frame == 5)
         {
             setImage("p1_walk05.png");
-            frame = 6;
+            getImage().scale(55, 70);
         }
         else if(frame == 6)
         {
             setImage("p1_walk06.png");
-            frame = 7;
+            getImage().scale(55, 70);
         }
         else if(frame == 7)
         {
             setImage("p1_walk07.png");
-            frame = 8;
+            getImage().scale(55, 70);
         }
         else if(frame == 8)
         {
             setImage("p1_walk08.png");
-            frame = 9;
+            getImage().scale(55, 70);
         }
         else if(frame == 9)
         {
             setImage("p1_walk09.png");
-            frame = 10;
+            getImage().scale(55, 70);
         }
         else if(frame == 10)
         {
             setImage("p1_walk10.png");
-            frame = 11;
+            getImage().scale(55, 70);
         }
         else if(frame == 11)
         {
             setImage("p1_walk11.png");
-            frame = 12;
+            getImage().scale(55, 70);
+            frame = 0;
             return;
             
         }
@@ -171,59 +203,61 @@ public class Hero extends Mover {
         if(frame == 1)
         {
             setImage("p1_walk010.png");
-            frame = 2;
+            getImage().scale(55, 70);
         }
         else if(frame == 2)
         {
             setImage("p1_walk020.png");
-            frame = 3;
+            getImage().scale(55, 70);
         }
         else if(frame == 3)
         {
             setImage("p1_walk030.png");
-            frame = 4;
+            getImage().scale(55, 70);
         }
         else if(frame == 4)
         {
             setImage("p1_walk040.png");
-            frame = 5;
+            getImage().scale(55, 70);
         }
         else if(frame == 5)
         {
             setImage("p1_walk050.png");
-            frame = 6;
+            getImage().scale(55, 70);
         }
         else if(frame == 6)
         {
             setImage("p1_walk060.png");
-            frame = 7;
         }
         else if(frame == 7)
         {
             setImage("p1_walk070.png");
-            frame = 8;
+            getImage().scale(55, 70);
         }
         else if(frame == 8)
         {
             setImage("p1_walk080.png");
-            frame = 9;
+            getImage().scale(55, 70);
         }
         else if(frame == 9)
         {
             setImage("p1_walk090.png");
-            frame = 10;
+            getImage().scale(55, 70);
         }
         else if(frame == 10)
         {
             setImage("p1_walk100.png");
-            frame = 11;
+            getImage().scale(55, 70);
         }
         else if(frame == 11)
         {
             setImage("p1_walk110.png");
-            frame = 1;
+            getImage().scale(55, 70);
+            frame = 0;
             return;
         }
         frame++;
+        
+        
     }
 }

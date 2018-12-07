@@ -707,11 +707,11 @@ public class TileFactory {
             tile.isSolid = true;
             break;
             case 176:
-            tile=new Tile("coinSilver.png",TileEngine.TILE_WIDTH,TileEngine.TILE_HEIGHT);
+            tile=new coinSilverTile("coinSilver.png",TileEngine.TILE_WIDTH,TileEngine.TILE_HEIGHT);
             tile.isSolid = true;
             break;
             case 175:
-            tile=new Tile("coinGold.png",TileEngine.TILE_WIDTH,TileEngine.TILE_HEIGHT);
+            tile=new coinGoldTile("coinGold.png",TileEngine.TILE_WIDTH,TileEngine.TILE_HEIGHT);
             tile.isSolid = true;
             break;
             case 174:
@@ -729,6 +729,10 @@ public class TileFactory {
             default:
             tile = new Tile("p1_front.png", TileEngine.TILE_WIDTH, TileEngine.TILE_HEIGHT);
             tile.isSolid = true;
+            break;
+            case 178:
+            tile = new Key2("keyYellow.png", TileEngine.TILE_WIDTH, TileEngine.TILE_HEIGHT);
+            tile.isSolid = false;
             break;
         }
         return tile;
