@@ -1,4 +1,3 @@
-
 import greenfoot.*;
 
 /**
@@ -11,18 +10,21 @@ public class Hero extends Mover {
     private final double acc;
     private final double drag;
     boolean onGround;
-     boolean coinGold= false;
+    boolean coinGold= false;
+    boolean coinSilver= false;
     int x = 84;
     int y = 973;
     boolean Key2;
     public int frame = 0;
+
+    public static int score=0;
 
     public Hero() {
         super();
         gravity = 9.8;
         acc = 0.6;
         drag = 0.8;
-         setImage("p1.png");
+        setImage("p1.png");
         getImage().scale(55, 70);                               
     }
 
@@ -32,8 +34,11 @@ public class Hero extends Mover {
         lava();
         water();
         lava2();
-        eatKeys();
+        eatKey();
         eatcoinGold();
+        eatCoinSilver();
+        tile();
+        doortile();
         velocityX *= drag;
         velocityY += acc;
         if (velocityY > gravity) {
@@ -41,7 +46,6 @@ public class Hero extends Mover {
         }
         applyVelocity();
         handleInput();
-
         for (Actor enemy : getIntersectingObjects(Enemy.class)) {
             if (enemy != null) {
                 setLocation(x,y);
@@ -59,7 +63,6 @@ public class Hero extends Mover {
             //}
 
         }
-
         if (Greenfoot.isKeyDown("left")) {
             velocityX = -6;
             animatieLeft();
@@ -67,39 +70,38 @@ public class Hero extends Mover {
             velocityX = 6;
             animatieRight();
         }
-
     }
     
-    boolean onGround() {
-        Actor under = getOneObjectAtOffset(0, getImage().getHeight()/2, Tile.class);
+  boolean onGround() {
+        Actor under = getOneObjectAtOffset(0, getImage().getHeight()*3/4, Tile.class);
         return under != null;
     }
     
-    public void lava(){
+  public void lava(){
         for(Actor hero : getIntersectingObjects(lavaTile.class)){
             if(hero != null) {
                 setLocation(x,y);
             }
         }
     }
-    public void water(){
+  public void water(){
         for (Actor hero : getIntersectingObjects(waterTile.class)){
             if(hero != null) {
                 setLocation(x,y);
             }
         }
     }
-    public void lava2(){
+  public void lava2(){
         for (Actor hero : getIntersectingObjects(lavaTile2.class)){
             if (hero != null) {
                 setLocation(x,y);
             }
         }
     }
-    public boolean eatKeys()
+  public boolean eatKey()
 
     {
-        for(Actor keys : getIntersectingObjects(Key2.class))
+        for(Actor key : getIntersectingObjects(Key2.class))
 
         {
             if(isTouching(Key2.class))
@@ -112,8 +114,51 @@ public class Hero extends Mover {
         }
         return Key2;
     }
+  public boolean eatKeys()
 
-    public boolean eatcoinGold()
+    {
+        for(Actor key : getIntersectingObjects(Key3.class))
+
+        {
+            if(isTouching(Key3.class))
+
+            {
+                removeTouching(Key3.class);
+                Key2= true;
+                break;
+            }
+        }
+        return Key2;
+    }
+  public void tile()
+
+    {
+      if(isTouching(DoorTile.class))
+
+      {
+
+          Greenfoot.setWorld(new World2());
+
+    
+
+        }
+    }
+  public void doortile()
+
+    {
+
+      if(isTouching(DoorTop.class))
+
+      {
+
+          Greenfoot.setWorld(new World3());
+
+    
+
+        }
+
+    }  
+  public boolean eatcoinGold()
 
     {
         for(Actor coinGolder : getIntersectingObjects(coinGoldTile.class))
@@ -129,14 +174,30 @@ public class Hero extends Mover {
         }
         return coinGold;
     }
-    public int getWidth() {
+  public boolean eatCoinSilver()
+
+    {
+        for(Actor coinSilver1 : getIntersectingObjects(coinSilverTile.class))
+
+        {
+            if(isTouching(coinSilverTile.class))
+
+            {
+                removeTouching(coinSilverTile.class);
+                coinSilver= true;
+                break;
+            }
+        }
+        return coinGold;
+    }
+    
+  public int getWidth() {
         return getImage().getWidth();
     }
-
-    public int getHeight() {
+  public int getHeight() {
         return getImage().getHeight();
     }
-    public void animatieRight()
+  public void animatieRight()
     {
         if(frame == 1 )
         {
@@ -198,7 +259,7 @@ public class Hero extends Mover {
         }
         frame++;
     }
-    public void animatieLeft()
+  public void animatieLeft()
     {
         if(frame == 1)
         {
@@ -228,6 +289,7 @@ public class Hero extends Mover {
         else if(frame == 6)
         {
             setImage("p1_walk060.png");
+            getImage ().scale(55, 70);
         }
         else if(frame == 7)
         {

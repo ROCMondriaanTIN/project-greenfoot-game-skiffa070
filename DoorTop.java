@@ -1,3 +1,4 @@
+
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 
@@ -14,10 +15,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
  */
 
-public class coinGoldTile extends Tile
+public class DoorTop extends Tile
 
 {
-
     /**
 
      * Act - do whatever the Key2 wants to do. This method is called whenever
@@ -26,12 +26,11 @@ public class coinGoldTile extends Tile
 
      */
 
-    public coinGoldTile(String image, int width, int height) 
+    public DoorTop(String image, int width, int height) 
 
     {
 
         super(image, width, height);
 
     }    
-
 }
