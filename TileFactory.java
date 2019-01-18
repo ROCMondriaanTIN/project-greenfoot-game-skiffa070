@@ -371,27 +371,27 @@ public class TileFactory {
             tile.isSolid = true;
             break;
             case 90:
-            tile=new lavaTile2("liquidLava.png",TileEngine.TILE_WIDTH,TileEngine.TILE_HEIGHT);
+            tile=new Death("liquidLava.png",TileEngine.TILE_WIDTH,TileEngine.TILE_HEIGHT);
             tile.isSolid = false;
             break;
             case 91:
-            tile=new Tile("liquidLavaTop.png",TileEngine.TILE_WIDTH,TileEngine.TILE_HEIGHT);
+            tile=new Death("liquidLavaTop.png",TileEngine.TILE_WIDTH,TileEngine.TILE_HEIGHT);
             tile.isSolid = false;
             break;
             case 92:
-            tile=new lavaTile("liquidLavaTop_mid.png",TileEngine.TILE_WIDTH,TileEngine.TILE_HEIGHT);
+            tile=new Death("liquidLavaTop_mid.png",TileEngine.TILE_WIDTH,TileEngine.TILE_HEIGHT);
             tile.isSolid = false;
             break;
             case 93:
-            tile=new Tile("liquidWater.png",TileEngine.TILE_WIDTH,TileEngine.TILE_HEIGHT);
+            tile=new Death("liquidWater.png",TileEngine.TILE_WIDTH,TileEngine.TILE_HEIGHT);
             tile.isSolid = true;
             break;
             case 94:
-            tile=new waterTile("liquidWaterTop.png",TileEngine.TILE_WIDTH,TileEngine.TILE_HEIGHT);
+            tile=new Death("liquidWaterTop.png",TileEngine.TILE_WIDTH,TileEngine.TILE_HEIGHT);
             tile.isSolid = false;
             break;
             case 95:
-            tile=new Tile("liquidWaterTop_mid.png",TileEngine.TILE_WIDTH,TileEngine.TILE_HEIGHT);
+            tile=new Death("liquidWaterTop_mid.png",TileEngine.TILE_WIDTH,TileEngine.TILE_HEIGHT);
             tile.isSolid = true;
             break;
             case 96:
@@ -696,7 +696,7 @@ public class TileFactory {
             break;
             case 171:
             tile=new Tile("window.png",TileEngine.TILE_WIDTH,TileEngine.TILE_HEIGHT);
-            tile.isSolid = true;
+            tile.isSolid = false;
             break;
             case 177:
             tile=new Tile("cactus.png",TileEngine.TILE_WIDTH,TileEngine.TILE_HEIGHT);

@@ -93,7 +93,7 @@ public class World3 extends World {
 
         // moet de klasse Mover extenden voor de camera om te werken
 
-        Hero hero = new Hero();
+        Hero hero = new Hero(3);
 
 
 
@@ -110,6 +110,8 @@ public class World3 extends World {
         addObject(hero, 73, 140);
 
         showText("Level 3", 100, 120);
+        
+        addObject(new HUD(), 0, 0);
 
 
         // Force act zodat de camera op de juist plek staat.

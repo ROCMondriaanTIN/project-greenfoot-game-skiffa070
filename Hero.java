@@ -16,11 +16,22 @@ public class Hero extends Mover {
     int y = 973;
     boolean Key2;
     public int frame = 0;
+    private int world = 0;
+    private boolean toLevel2;
+    private boolean toLevel3;
+    static int wereld = 1;
+    static int silverCoins;
+    static int sleutels;
+    public int goldCoins;
+    static int lifes = 2;
+    public boolean didde = false;
 
     public static int score=0;
+     double doodegegaan;
 
-    public Hero() {
+    public Hero(int world) {
         super();
+        this.world = world;
         gravity = 9.8;
         acc = 0.6;
         drag = 0.8;
@@ -31,31 +42,68 @@ public class Hero extends Mover {
     @Override
     public void act() {
         handleInput();
-        lava();
-        water();
-        lava2();
         eatKey();
         eatcoinGold();
         eatCoinSilver();
-        tile();
-        doortile();
+        doors();
+        respawn();
+        levensoptellen();
+        
+        silverCoins();
+        lifes();
+        sleutels();
+        
         velocityX *= drag;
         velocityY += acc;
+        
         if (velocityY > gravity) {
             velocityY = gravity;
         }
         applyVelocity();
         handleInput();
+        getWorld().showText(getX() + "," + getY(),500,50);
+        
         for (Actor enemy : getIntersectingObjects(Enemy.class)) {
             if (enemy != null) {
-                setLocation(x,y);
+                respawn();
+                doodegegaan ++;
+                break;
+            }
+        }
+        for (Actor enemy : getIntersectingObjects(Death.class)) {
+            if (enemy != null) {
+                respawn();
+                
                 break;
             }
         }
     }
+    
+    public void levensoptellen() {
+        if (silverCoins == 20) {
+        silverCoins = silverCoins -20;
+        lifes++;
+        }
+        if(lifes > 3) {
+         lifes = 3;
+        }
+    }
+    public int sleutels() {
+        return sleutels;
+    }
+    
+    public int silverCoins() {
+        return silverCoins;
+    }
+    
+    
+    
+    public int lifes() {
+        return lifes;
+        }
 
     public void handleInput() {
-        if (Greenfoot.isKeyDown("up") && (onGround() == true)) {
+        if (Greenfoot.isKeyDown("up") /*&& (onGround() == true)*/) {
             //for(Actor Hero : getIntersectingObjects(Tile.class)){
                 velocityY = -15;
                 
@@ -70,6 +118,19 @@ public class Hero extends Mover {
             velocityX = 6;
             animatieRight();
         }
+        
+        if (Greenfoot.isKeyDown("Control") && (Greenfoot.isKeyDown("r"))) {
+
+
+
+            Greenfoot.setWorld(new World1());
+
+                Greenfoot.setWorld(new World1());
+
+
+
+        }
+            
     }
     
   boolean onGround() {
@@ -77,27 +138,14 @@ public class Hero extends Mover {
         return under != null;
     }
     
-  public void lava(){
-        for(Actor hero : getIntersectingObjects(lavaTile.class)){
+  public void death(){
+        for(Actor hero : getIntersectingObjects(Death.class)){
             if(hero != null) {
                 setLocation(x,y);
             }
         }
     }
-  public void water(){
-        for (Actor hero : getIntersectingObjects(waterTile.class)){
-            if(hero != null) {
-                setLocation(x,y);
-            }
-        }
-    }
-  public void lava2(){
-        for (Actor hero : getIntersectingObjects(lavaTile2.class)){
-            if (hero != null) {
-                setLocation(x,y);
-            }
-        }
-    }
+  
   public boolean eatKey()
 
     {
@@ -109,6 +157,7 @@ public class Hero extends Mover {
             {
                 removeTouching(Key2.class);
                 Key2= true;
+                sleutels ++;
                 break;
             }
         }
@@ -125,39 +174,13 @@ public class Hero extends Mover {
             {
                 removeTouching(Key3.class);
                 Key2= true;
+                sleutels++;
                 break;
             }
         }
         return Key2;
     }
-  public void tile()
-
-    {
-      if(isTouching(DoorTile.class))
-
-      {
-
-          Greenfoot.setWorld(new World2());
-
     
-
-        }
-    }
-  public void doortile()
-
-    {
-
-      if(isTouching(DoorTop.class))
-
-      {
-
-          Greenfoot.setWorld(new World3());
-
-    
-
-        }
-
-    }  
   public boolean eatcoinGold()
 
     {
@@ -169,11 +192,95 @@ public class Hero extends Mover {
             {
                 removeTouching(coinGoldTile.class);
                 coinGold= true;
+                silverCoins = silverCoins + 2;
                 break;
             }
         }
         return coinGold;
     }
+  
+public void doors() {
+    if (isTouching(DoorTile1.class)) {
+        switch(wereld)
+        {
+            case 1: 
+            Greenfoot.setWorld( new World2());
+            wereld = 2;
+            break;
+            case 2: 
+            Greenfoot.setWorld ( new World3());
+            wereld = 3;
+            break;
+            case 3:
+            Greenfoot.setWorld ( new World4());
+            wereld = 4;
+            break;
+            case 4:
+            Greenfoot.setWorld ( new TitleScreen());
+            break;
+            default:
+            break;
+        }
+        
+    }
+}
+
+public void respawn() {
+ if ( isTouching(Death.class)) {
+     
+     if( wereld == 1){
+        setLocation(84, 986);
+        
+        doodegegaan= doodegegaan + 0.5;
+        }
+        if( wereld == 2){
+        Greenfoot.setWorld(new World2());
+        lifes --;
+        }
+        if( wereld == 3){
+        Greenfoot.setWorld(new World3());
+        lifes --;
+        }
+        if( wereld == 4){
+        Greenfoot.setWorld(new World4());
+        lifes --;
+        }
+     
+    // switch(world)
+      //  {
+      //      case 0:
+      //      Greenfoot.setWorld( new MyWorld());
+      //      levens = levens -1;
+      //      break;
+      //      case 1: 
+      //      Greenfoot.setWorld( new World2());
+      //      levens = levens -1;
+      //      break;
+      //      case 2: 
+      //      Greenfoot.setWorld ( new World3());
+      //      levens = levens -1;
+      //      break;
+      //      case 3:
+      //      Greenfoot.setWorld ( new World4());
+      //      levens = levens -1;
+      //      break;
+      //      default:
+      //      break;
+      //  }
+ /* if (levens = 0) {
+  * Greenfoot.setWorld( new GameOver()); 
+}
+  */
+ 
+    }
+    
+    if(doodegegaan == 1) {
+        lifes = lifes - 1;
+        doodegegaan = 0;
+        
+    }
+}
+    
   public boolean eatCoinSilver()
 
     {
@@ -185,6 +292,7 @@ public class Hero extends Mover {
             {
                 removeTouching(coinSilverTile.class);
                 coinSilver= true;
+                silverCoins ++;
                 break;
             }
         }
@@ -322,4 +430,6 @@ public class Hero extends Mover {
         
         
     }
+    
+    
 }

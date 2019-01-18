@@ -15,7 +15,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 public class DoorTile extends Tile
 
-{/**
+{
+    /**
 
      * Act - do whatever the Key2 wants to do. This method is called whenever
 
